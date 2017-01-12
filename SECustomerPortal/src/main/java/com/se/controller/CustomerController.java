@@ -35,20 +35,24 @@ public class CustomerController {
 		
 	}
 	
-	@RequestMapping(value= "/{email}/code/{code}", method=RequestMethod.PUT)
+	@RequestMapping(value= "/email/{email}/code/{code}", method=RequestMethod.PUT)
 	public Customer updateCustomerCode(@PathVariable String email, @PathVariable String code){
 		
-		return customerService.getCustomer(email);
+		return customerService.updateCustomerCode(code,email);
 		
 	}
 	
-	@RequestMapping(value="/email/{email}" ,method=RequestMethod.GET)
+	@RequestMapping(value="/email/{email:.+}" ,method=RequestMethod.GET)
 	public Customer getCustomer(@PathVariable String email){
-		/*Customer customer = new Customer("user@gmail.com","Hopital01",
-				"7262829282","contactname01",new CustomerType(1L,"Hospital"),"301112266789","16722",null,"2827822",null,null,"p@ssw0rd");
-		customer.setId(id);
-		return customer;*/
-		System.out.println(email);
+
+		System.out.println("email:"+email);
+		return customerService.getCustomer(email);
+	}
+	
+	@RequestMapping(value="/email/{email:.+}" ,method=RequestMethod.PUT)
+	public Customer resetPassword(@PathVariable String email,@RequestBody String password){
+
+		System.out.println("email:"+email);
 		return customerService.getCustomer(email);
 	}
 }

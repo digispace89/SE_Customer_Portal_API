@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.se.dao.CustomerDao;
 import com.se.model.Customer;
 import com.se.model.CustomerType;
+import com.se.util.EmailUtil;
+import com.se.util.PasswordUtil;
 
 import come.se.service.CustomerService;
 
@@ -26,17 +28,33 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	@Transactional
 	public Customer createCustomer(Customer customer) {
-		customer.setPassword("Password");
-		return customerDao.createCustomer(customer);
+		customerDao.createCustomer(customer);
+		return customer;
 	}
 
 	@Override
 	public Customer getCustomer(String email) {
-		return customerDao.getCustomer(email);
+		List customers = customerDao.getCustomer(email);
+		if(customers.size()>0)
+			return (Customer) customers.get(0) ;
+		else 
+			return null;
 	}
 
 	@Override
-	public Customer updateCustomerCode(String customerCode) {
+	@Transactional
+	public Customer updateCustomerCode(String customerCode,String email) {
+		Customer customer = getCustomer(email);
+		customer.setCustomerCode(customerCode);
+		customer.setPassword(PasswordUtil.generatePassword());
+		customerDao.updateCustomer(customer);
+		EmailUtil.sendEmail(email, customer.getPassword());
+		return customer;
+	}
+
+	@Override
+	@Transactional
+	public Customer resetPassword(String email, String oldPassword, String newPassword) {
 		// TODO Auto-generated method stub
 		return null;
 	}

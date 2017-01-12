@@ -10,6 +10,7 @@ public interface CustomerService {
 	List<CustomerType> getAllCustomerTypes();
 	Customer createCustomer(Customer customer);
 	Customer getCustomer(String email);
-	Customer updateCustomerCode(String customerCode);
+	Customer updateCustomerCode(String customerCode, String email);
+	Customer resetPassword(String email, String oldPassword, String newPassword);
 
 }

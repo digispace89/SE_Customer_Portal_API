@@ -8,8 +8,8 @@ import com.se.model.CustomerType;
 public interface CustomerDao {
 
 	List<CustomerType> getAllCustomerTypes();
-	Customer createCustomer(Customer customer);
-	Customer updateCustomerCode(String customerCode);
-	Customer getCustomer(String email);
+	void createCustomer(Customer customer);
+	void updateCustomer(Customer customer);
+	List<Customer> getCustomer(String email);
 
 }
