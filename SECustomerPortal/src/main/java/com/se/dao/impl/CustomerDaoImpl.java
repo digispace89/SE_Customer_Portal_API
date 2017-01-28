@@ -33,9 +33,15 @@ public class CustomerDaoImpl implements CustomerDao {
 		hibernateTemplate.update(mergedCustomer);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public List<Customer> getCustomer(String email) {
 		List customers = hibernateTemplate.find("from Customer c where c.email = ?", email);
 		return customers;
+	}
+
+	@Override
+	public CustomerType getCustomerType(Long id) {
+		return hibernateTemplate.get(CustomerType.class, id);
 	}
 }

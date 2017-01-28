@@ -10,9 +10,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class EmailUtil {
 	
-	public static void sendEmail(String email, String generatePassword){
+	@Autowired
+	private MessageSourceUtil messageSourceUtil;
+	
+	public void sendEmail(String email, String generatePassword){
+		
 		email="digispace89@gmail.com";
 		final String username = "digispace89@gmail.com";
 		final String password = "coldcoffee";

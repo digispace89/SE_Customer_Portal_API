@@ -11,5 +11,7 @@ public interface CustomerDao {
 	void createCustomer(Customer customer);
 	void updateCustomer(Customer customer);
 	List<Customer> getCustomer(String email);
+	CustomerType getCustomerType(Long id);
+
 
 }
